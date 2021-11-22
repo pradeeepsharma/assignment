@@ -1,11 +1,14 @@
-package com.gartner.assignemnt;
+package com.gartner.assignemnt.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gartner.assignemnt.domain.Click;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClickFileReader implements ClickReader {
+public class ClickRepositoryJsonImpl implements ClickRepository {
     private static final String FORMAT = "d/MM/yyyy HH:mm:ss";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT);
 
@@ -47,5 +50,17 @@ public class ClickFileReader implements ClickReader {
             e.printStackTrace();
         }
         return clicks;
+    }
+
+    @Override
+    public void writeClick(List<Click> subSetOfClicks) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            mapper.writeValue(new File("./result/resultset.json"), subSetOfClicks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

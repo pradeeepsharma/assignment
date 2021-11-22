@@ -57,7 +57,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.gartner.assignemnt.IPRegister</mainClass>
+                    <mainClass>com.gartner.assignemnt.controller.ClickScanner</mainClass>
                 </configuration>
             </plugin>
         </plugins>
